@@ -168,9 +168,9 @@ module ActionController
   end
 end
 
+# the following code are obtained from https://github.com/cannikin/format_fallback
 module ActionView
   class PathSet < Array
-
     def find_with_default_template(path, prefix = nil, partial = false, details = {}, key = nil)
       if prefix == "layouts"
         # Layouts have their own way of managing fallback, better leave them alone
@@ -186,11 +186,9 @@ module ActionView
       end
     end
     alias_method_chain :find, :default_template
-
   end
-  
+
   class Resolver
-    
     def cached(key, prefix, name, partial)
       return yield unless key && caching?
       cache_content = yield
@@ -200,9 +198,9 @@ module ActionView
         @cached[key][prefix][name][partial] ||= cache_content
       end
     end
-    
   end
 end
+# end of code obtained from https://github.com/cannikin/format_fallback
 
 if Rails::VERSION::MAJOR < 3
   ActionController::Base.send :include, ActionController::MobileFu
